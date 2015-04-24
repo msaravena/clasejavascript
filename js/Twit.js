@@ -4,6 +4,7 @@ function Twit(titulo, desc) {
 }
 
 Twit.twits =[];
+
 Twit.aceptar = function(e) { //obtener titulo y desc y agregar sus valores a un arreglo
 	e.preventDefault()
 	var titulo = document.getElementById('titulo').value;
@@ -13,6 +14,7 @@ Twit.aceptar = function(e) { //obtener titulo y desc y agregar sus valores a un 
 	Twit.twits.push(twit);
 	Twit.cancelar(e);
 	Twit.mostrar();
+	Twit.guardar();
 
 }
 
@@ -22,25 +24,44 @@ Twit.cancelar = function(e) {
 	var desc = document.getElementById('desc');
 	titulo.value = '';
 	desc.value = '';
-}
+	}
 
 Twit.mostrar = function() {
 	var comentarios='';
 	Twit.twits.map(function(elemento, indice){  //elemento del array, indice del array
-		comentarios = comentarios + '<article>'
-					+ '<h2>' +elemento.titulo + '</h2><p>' 
-					+ elemento.desc + '</p></article>';
+	comentarios = comentarios + '<article>'
+				+ '<h2>' +elemento.titulo + '</h2><p>' 
+				+ elemento.desc + '</p></article>';
 	});
-	document.getElementById('comentarios').innerHTML = comentarios;
+document.getElementById('comentarios').innerHTML = comentarios; //objeto, otro objeto, propiedad del objeto
+}																
+
+
+
+Twit.guardar = function() {
+	var twits = Twit.twits;
+	var twitsEncoded = JSON.stringify(twits);
+	localStorage.setItem('twits', twitsEncoded);
 }
+
+Twit.obtenerTwits = function() {
+	var twitsEncoded = localStorage.getItem('twits');
+	var twits = JSON.parse(twitsEncoded);
+	Twit.twits = twits;
+
+}
+
+Twit.obtenerTwits();
+Twit.mostrar();
+
 /*
 <article>
-				<h2>Titulo</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla consequuntur itaque sunt,
-				 eaque voluptas laudantium iure rerum ad, eius assumenda dicta asperiores nihil minus est quas 
-				 deserunt doloribus ratione vero.</p>
-					
-			</article>	*/
+<h2>Titulo</h2>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla consequuntur itaque sunt,
+eaque voluptas laudantium iure rerum ad, eius assumenda dicta asperiores nihil minus est quas 
+deserunt doloribus ratione vero.</p>
+
+</article>	*/
 
 
 
