@@ -1,0 +1,9 @@
+{
+	"folders":
+	[
+		{
+			"path": "/home/marcosap/Escritorio",
+			 "file_exclude_patterns": ["*.sublime-project"]
+		}
+	]
+}
